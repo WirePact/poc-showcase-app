@@ -28,5 +28,11 @@ configMapGenerator:
 
 images:
   - name: frontend
+    newName: ghcr.io/wirepact/poc-showcase-app/frontend
+    newTag: latest
   - name: modern
+    newName: ghcr.io/wirepact/poc-showcase-app/modern
+    newTag: latest
   - name: legacy
+    newName: ghcr.io/wirepact/poc-showcase-app/legacy
+    newTag: latest
