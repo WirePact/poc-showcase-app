@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+spec:
+  revisionHistoryLimit: 0
+  template:
+    spec:
+      containers:
+        - name: svc
+          image: legacy
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 80

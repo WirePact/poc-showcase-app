@@ -1,0 +1,63 @@
+﻿@page
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Authentication
+@model Frontend.Pages.Dashboard
+
+<h1 class="mb-12 text-xl">Dashboard</h1>
+
+<div class="mb-8">
+    You are authenticated. Welcome @User.FindFirstValue("name").
+</div>
+
+<p class="mb-8 w-1/3">
+    Please find the configured base url below. The base url
+    is fetched from the environment variable "API_BASE_URL".
+    The api will be called with two different routes.
+    One for list of customers and one for the list of performed orders.
+    Those are static data this setup is used to show the case for
+    the distributed authentication mesh. The called service ("Modern-Service")
+    Must implement some way of transforming its credentials to the valid basic
+    authentication credentials of the "Legacy-Service".
+</p>
+
+<p class="mb-8 w-1/3">
+    Without the "distributed authentication mesh", the modern service
+    needs to transform the credentials and then call the legacy service.
+    With the mesh, the modern service can just provide the credentials
+    it has (right now the opaque access token of Zitadel).
+</p>
+
+<p class="font-mono w-1/3 break-all bg-gray-300 rounded p-2 mb-8">
+    Access Token: @await HttpContext.GetTokenAsync("access_token")
+</p>
+
+<form method="post">
+    <p class="w-1/3 mb-4 p-2 bg-gray-300 rounded font-mono">Api Base Url: @Model.ApiUrl</p>
+    <input class="inline-block py-2 px-4 bg-yellow-500 rounded" type="submit" value="Call API"/>
+</form>
+
+@if (Model.Customers.Any())
+{
+    <div class="my-12">
+        <h4>Fetched Customers</h4>
+        <ul>
+            @foreach (var c in Model.Customers)
+            {
+                <li>@c.Id :: @c.Name</li>
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.Customers.Any())
+{
+    <div class="my-12">
+        <h4>Fetched Orders (from legacy service)</h4>
+        <ul>
+            @foreach (var o in Model.Orders)
+            {
+                <li>@o.Id :: @o.Customer :: @o.Product :: @o.Amount</li>
+            }
+        </ul>
+    </div>
+}

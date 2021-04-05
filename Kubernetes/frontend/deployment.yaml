@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+spec:
+  revisionHistoryLimit: 0
+  template:
+    spec:
+      containers:
+        - name: svc
+          image: frontend
+          imagePullPolicy: Always
+          env:
+            - name: API_BASE_URL
+              value: http://$(MODERN_SERVICE_NAME).$(NAMESPACE)
+          ports:
+            - name: http
+              containerPort: 80

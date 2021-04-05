@@ -1,0 +1,26 @@
+﻿apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: frontend-1
+spec:
+  host: kubernetes.docker.internal
+  service: $(FRONTEND_SERVICE_NAME).$(NAMESPACE)
+  prefix: /
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: frontend-2
+spec:
+  host: kubernetes.local
+  service: $(FRONTEND_SERVICE_NAME).$(NAMESPACE)
+  prefix: /
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: frontend-3
+spec:
+  host: localhost
+  service: $(FRONTEND_SERVICE_NAME).$(NAMESPACE)
+  prefix: /

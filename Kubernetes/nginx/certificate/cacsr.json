@@ -1,0 +1,5 @@
+{
+  "CN": "nginx root CA",
+  "key": { "algo": "rsa", "size": 2048 },
+  "names": [{ "C": "DEV", "L": "Kubernetes", "O": "Kubernetes Operator" }]
+}

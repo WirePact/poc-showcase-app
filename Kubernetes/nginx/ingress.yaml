@@ -1,0 +1,42 @@
+﻿apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend
+spec:
+  tls:
+    - hosts:
+        - kubernetes.docker.internal
+        - kubernetes.local
+        - localhost
+      secretName: tls-certificate
+  rules:
+    - host: kubernetes.docker.internal
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: $(FRONTEND_SERVICE_NAME)
+                port:
+                  number: 80
+    - host: kubernetes.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: $(FRONTEND_SERVICE_NAME)
+                port:
+                  number: 80
+    - host: localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: $(FRONTEND_SERVICE_NAME)
+                port:
+                  number: 80

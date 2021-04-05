@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+spec:
+  revisionHistoryLimit: 0
+  template:
+    spec:
+      containers:
+        - name: svc
+          image: modern
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: modern-service-config
+          env:
+            - name: LEGACY_API_URL
+              value: http://$(LEGACY_SERVICE_NAME).$(NAMESPACE)
+          ports:
+            - name: http
+              containerPort: 80

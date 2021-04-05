@@ -1,0 +1,6 @@
+{
+  "CN": "nginx tls",
+  "hosts": ["kubernetes.docker.internal", "kubernetes.local", "localhost", "*.wirepact-poc-showcase.svc", "*.svc"],
+  "key": { "algo": "ecdsa", "size": 256 },
+  "names": [{ "C": "DEV", "L": "Kubernetes" }]
+}
