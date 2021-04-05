@@ -1,0 +1,38 @@
+name: Publish Showcase Images
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_images:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        part: [frontend, legacy, modern]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build and Push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./${{ matrix.part }}.dockerfile
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/${{ matrix.part }}:latest
+            ghcr.io/${{ github.repository_owner }}/${{ matrix.part }}:${{ github.sha }}
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}

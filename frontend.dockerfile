@@ -10,7 +10,7 @@ RUN dotnet publish -o artifacts -c Release Frontend
 ### Deploy
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS final
 
-LABEL org.opencontainers.image.source=https://github.com/buehler/distributed-authentication-mesh
+LABEL org.opencontainers.image.source=https://github.com/WirePact/poc-showcase-app
 
 EXPOSE 80
 ENV ASPNETCORE_URLS=http://0.0.0.0:80 \
