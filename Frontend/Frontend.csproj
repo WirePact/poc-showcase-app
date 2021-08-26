@@ -6,7 +6,7 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.4" />
-      <PackageReference Include="Zitadel" Version="2.2.2" />
+      <PackageReference Include="Zitadel" Version="2.2.6" />
     </ItemGroup>
 
     <ItemGroup>
