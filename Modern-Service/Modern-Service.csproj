@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Zitadel" Version="2.2.2" />
+        <PackageReference Include="Zitadel" Version="3.3.7" />
     </ItemGroup>
 
     <ItemGroup>
